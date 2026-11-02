@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Soyuz Lookup — comprehensive Bluesky profile intelligence by Soyuz." />
+<title>Soyuz Lookup · Bluesky Intelligence by Soyuz</title>
+<link id="favicon"
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Ccircle%20cx='50'%20cy='50'%20r='50'/%3E%3C/clipPath%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237c3aed'/%3E%3Cstop%20offset='0.5'%20stop-color='%2306b6d4'/%3E%3Cstop%20offset='1'%20stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx='50'%20cy='50'%20r='50'%20fill='url(%23g)'/%3E%3Cimage%20href='https://iili.io/nrJY9Bs.png'%20x='8'%20y='8'%20width='84'%20height='84'%20clip-path='url(%23c)'%20preserveAspectRatio='xMidYMid%20slice'/%3E%3C/svg%3E" />
+<link rel="alternate icon" type="image/png" href="https://iili.io/nrJY9Bs.png" />
+<style>
+  /* ===========================================================
+     SOYUZ LOOKUP v3 — animated, glassmorphic, distinctive
+     =========================================================== */
+  :root {
+    --bg: #0a0a0f;
+    --bg-base: #0a0a0f;
+    --surface: rgba(22, 24, 38, 0.72);
+    --surface-solid: #16162a;
+    --surface-2: rgba(30, 33, 52, 0.6);
+    --surface-3: rgba(42, 46, 70, 0.5);
+    --text: #f0f2fa;
+    --text-soft: #c8cde0;
+    --muted: #7a8099;
+    --primary: #7c3aed;
+    --primary-light: #a78bfa;
+    --cyan: #06b6d4;
+    --cyan-light: #67e8f9;
+    --accent: #ec4899;
+    --accent-light: #f9a8d4;
+    --ok: #10b981;
+    --warn: #f59e0b;
+    --err: #ef4444;
+    --gold: #fbbf24;
+    --border: rgba(124, 58, 237, 0.15);
+    --border-strong: rgba(124, 58, 237, 0.3);
+    --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), 0 2px 8px -2px rgba(124, 58, 237, 0.1);
+    --shadow-lg: 0 24px 64px -16px rgba(0, 0, 0, 0.8), 0 0 32px -8px rgba(124, 58, 237, 0.15);
+    --glow-primary: 0 0 24px -4px rgba(124, 58, 237, 0.4);
+    --glow-cyan: 0 0 24px -4px rgba(6, 182, 212, 0.4);
+    --glow-accent: 0 0 24px -4px rgba(236, 72, 153, 0.4);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --grad-primary: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+    --grad-accent: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+    --grad-full: linear-gradient(135deg, #7c3aed 0%, #06b6d4 50%, #ec4899 100%);
+  }
+  html[data-theme="light"] {
+    --bg: #faf7f2;
+    --bg-base: #faf7f2;
+    --surface: rgba(255, 255, 255, 0.75);
+    --surface-solid: #ffffff;
+    --surface-2: rgba(248, 245, 240, 0.8);
+    --surface-3: rgba(240, 235, 228, 0.6);
+    --text: #1a1a2e;
+    --text-soft: #3d3d5c;
+    --muted: #7a7a8e;
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --cyan: #0891b2;
+    --cyan-light: #06b6d4;
+    --accent: #be185d;
+    --accent-light: #ec4899;
+    --ok: #059669;
+    --warn: #d97706;
+    --err: #dc2626;
+    --gold: #ca8a04;
+    --border: rgba(109, 40, 217, 0.12);
+    --border-strong: rgba(109, 40, 217, 0.25);
+    --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.12), 0 2px 8px -2px rgba(109, 40, 217, 0.08);
+    --shadow-lg: 0 24px 64px -16px rgba(0, 0, 0, 0.2), 0 0 32px -8px rgba(109, 40, 217, 0.1);
+    --glow-primary: 0 0 24px -4px rgba(109, 40, 217, 0.2);
+    --glow-cyan: 0 0 24px -4px rgba(8, 145, 178, 0.2);
+    --glow-accent: 0 0 24px -4px rgba(190, 24, 93, 0.2);
+    --grad-primary: linear-gradient(135deg, #6d28d9 0%, #0891b2 100%);
+    --grad-accent: linear-gradient(135deg, #be185d 0%, #d97706 100%);
+    --grad-full: linear-gradient(135deg, #6d28d9 0%, #0891b2 50%, #be185d 100%);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg-base);
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ---------- ANIMATED BACKGROUND BLOBS ---------- */
+  .bg-blobs {
+    position: fixed; inset: 0; z-index: -1; overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+    animation: floatBlob 20s ease-in-out infinite;
+  }
+  .blob-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; right: -100px; animation-delay: 0s; }
+  .blob-2 { width: 400px; height: 400px; background: var(--cyan); bottom: -50px; left: -50px; animation-delay: -5s; }
+  .blob-3 { width: 350px; height: 350px; background: var(--accent); top: 40%; left: 50%; animation-delay: -10s; }
+  html[data-theme="light"] .blob { opacity: 0.15; }
+  @keyframes floatBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.05); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+  }
+
+  a { color: var(--cyan); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--cyan-light); text-decoration: underline; }
+
+  /* ---------- HEADER ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: color-mix(in srgb, var(--bg-base) 60%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner {
+    max-width: 1400px; margin: 0 auto;
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+  .brand-logo-wrap {
+    position: relative; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--grad-full); padding: 2px; flex-shrink: 0;
+    box-shadow: var(--glow-primary);
+    animation: logoSpin 12s linear infinite;
+  }
+  @keyframes logoSpin { to { transform: rotate(360deg); } }
+  .brand-logo-wrap img {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    background: var(--bg-base);
+    animation: logoSpin 12s linear infinite reverse;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+  .brand-title { font-weight: 800; font-size: 18px; letter-spacing: 0.2px; color: var(--text); }
+  .brand-sub { font-size: 10.5px; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; }
+  .brand-sub b { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+  .top-actions { display: flex; align-items: center; gap: 10px; }
+  .conn-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--muted);
+    background: var(--surface-2); border: 1px solid var(--border);
+    padding: 6px 10px; border-radius: 999px;
+    backdrop-filter: blur(10px);
+  }
+  .conn-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .conn-pill.ok .dot { background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: pulse 2s infinite; }
+  .conn-pill.err .dot { background: var(--err); }
+  .conn-pill.busy .dot { background: var(--warn); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .icon-btn {
+    width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--text-soft); border-radius: 10px; cursor: pointer; transition: all 0.2s;
+  }
+  .icon-btn:hover { background: var(--surface-3); color: var(--text); border-color: var(--border-strong); transform: scale(1.05); }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    max-width: 1400px; margin: 0 auto;
+    padding: 56px 24px 24px; text-align: center; position: relative;
+  }
+  .soyuz-mark {
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+    padding: 8px 18px 8px 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    animation: fadeInDown 0.6s ease;
+  }
+  @keyframes fadeInDown { from { opacity:0; transform: translateY(-12px); } to { opacity:1; transform: translateY(0); } }
+  .soyuz-mark-img {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--grad-full); padding: 2px;
+  }
+  .soyuz-mark-img img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--bg-base); }
+  .soyuz-mark-text { font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .soyuz-mark-text b { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+
+  .hero h1 {
+    font-size: clamp(34px, 5.5vw, 60px); margin: 0 0 14px;
+    letter-spacing: -1px; font-weight: 900;
+    background: var(--grad-full); background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: gradientShift 4s ease infinite;
+  }
+  @keyframes gradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  .hero p { color: var(--muted); margin: 0 auto 32px; max-width: 680px; font-size: 15px; animation: fadeInUp 0.8s ease 0.2s both; }
+
+  .search-box {
+    max-width: 760px; margin: 0 auto; display: flex; gap: 10px; align-items: stretch;
+    background: var(--surface); border: 1px solid var(--border-strong);
+    padding: 8px; border-radius: 16px; box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    animation: fadeInUp 0.8s ease 0.3s both;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .search-box:focus-within { border-color: var(--primary); box-shadow: var(--shadow-lg), var(--glow-primary); }
+  @keyframes fadeInUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+  .search-box input {
+    flex: 1; min-width: 0; background: transparent; border: 0; outline: none;
+    color: var(--text); font-size: 15px; padding: 12px 14px; font-family: var(--sans);
+  }
+  .search-box input::placeholder { color: var(--muted); }
+  .search-box button {
+    background: var(--grad-primary); color: white; border: 0;
+    padding: 0 24px; border-radius: 10px; font-weight: 700; font-size: 14px;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.2s; white-space: nowrap;
+    background-size: 200% auto;
+  }
+  .search-box button:hover:not(:disabled) { background-position: right center; transform: translateY(-1px); box-shadow: var(--glow-primary); }
+  .search-box button:disabled { opacity: 0.55; cursor: not-allowed; }
+  .search-box button svg { width: 16px; height: 16px; }
+
+  .examples {
+    margin: 14px auto 0; max-width: 760px;
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+  .examples button {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-soft); font-size: 12px; padding: 5px 11px; border-radius: 999px;
+    cursor: pointer; transition: all 0.2s; font-family: var(--mono);
+    backdrop-filter: blur(10px);
+  }
+  .examples button:hover { border-color: var(--primary); color: var(--cyan-light); transform: translateY(-1px); }
+
+  /* ---------- LAYOUT ---------- */
+  main { max-width: 1400px; margin: 0 auto; padding: 28px 24px 80px; }
+  .results { display: grid; gap: 18px; }
+  .results.hidden { display: none; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 1000px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ---------- CARD ---------- */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    overflow: hidden; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    animation: cardIn 0.5s ease both;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .card:hover { border-color: var(--border-strong); }
+  @keyframes cardIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 18px; border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .card-head h2 {
+    margin: 0; font-size: 12.5px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--text-soft);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-head h2 .ico {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--grad-primary); color: white;
+  }
+  .card-head h2 .ico svg { width: 14px; height: 14px; }
+  .count-chip {
+    font-size: 11px; color: var(--cyan-light); background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    padding: 3px 9px; border-radius: 999px; font-weight: 600; font-family: var(--mono);
+  }
+  .card-body { padding: 16px 18px; }
+  .card-body.flush { padding: 0; }
+
+  /* ---------- PROFILE HERO ---------- */
+  .profile-hero { position: relative; }
+  .profile-banner {
+    height: 180px; background-size: cover; background-position: center;
+    background-color: var(--surface-3); position: relative;
+  }
+  .profile-banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--bg-base) 80%, transparent) 100%);
+  }
+  .profile-hero-inner { padding: 0 22px 22px; border-bottom: 1px solid var(--border); position: relative; z-index: 1; margin-top: -50px; }
+  .profile-top { display: flex; gap: 18px; align-items: flex-end; }
+  .avatar {
+    width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+    border: 4px solid var(--bg-base); box-shadow: var(--shadow-lg); flex-shrink: 0;
+    background: var(--surface-3); transition: transform 0.3s;
+  }
+  .avatar:hover { transform: scale(1.05); }
+  .profile-meta { flex: 1; min-width: 0; padding-bottom: 4px; }
+  .profile-name {
+    font-size: 26px; font-weight: 900; margin: 0 0 2px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .verified-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--grad-accent); color: white;
+  }
+  .verified-badge svg { width: 14px; height: 14px; }
+  .profile-handle { color: var(--cyan-light); font-size: 14px; font-family: var(--mono); margin: 0 0 10px; word-break: break-all; }
+  .profile-bio { color: var(--text-soft); font-size: 14px; margin: 0 0 12px; white-space: pre-wrap; word-break: break-word; }
+  .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 600;
+    background: var(--surface-3); border: 1px solid var(--border); color: var(--text-soft);
+  }
+  .tag.primary { background: var(--grad-primary); color: white; border-color: transparent; }
+  .tag.accent { background: var(--grad-accent); color: white; border-color: transparent; }
+  .tag.ok { background: rgba(16, 185, 129, 0.15); color: var(--ok); border-color: rgba(16, 185, 129, 0.3); }
+  .tag.warn { background: rgba(245, 158, 11, 0.15); color: var(--warn); border-color: rgba(245, 158, 11, 0.3); }
+  .tag.err { background: rgba(239, 68, 68, 0.15); color: var(--err); border-color: rgba(239, 68, 68, 0.3); }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .stat { background: var(--surface-solid); padding: 16px 12px; text-align: center; transition: background 0.2s; }
+  .stat:hover { background: var(--surface-2); }
+  .stat .n { font-size: 22px; font-weight: 900; font-family: var(--mono); background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); }
+  .info-cell { background: var(--surface-solid); padding: 14px 16px; }
+  .info-cell .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+  .info-cell .v { font-size: 14px; color: var(--text); word-break: break-all; }
+  .info-cell .v.mono { font-family: var(--mono); font-size: 12.5px; }
+  .info-cell .v small { color: var(--muted); font-size: 11px; display: block; margin-top: 2px; }
+  @media (max-width: 700px) { .info-grid { grid-template-columns: 1fr; } .stat-row { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- LISTS ---------- */
+  .list-scroll { max-height: 480px; overflow-y: auto; }
+  .list-scroll::-webkit-scrollbar { width: 6px; }
+  .list-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+  .list-scroll::-webkit-scrollbar-track { background: transparent; }
+
+  .user-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 18px; border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .user-row:last-child { border-bottom: 0; }
+  .user-row:hover { background: var(--surface-2); }
+  .user-row img { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; background: var(--surface-3); }
+  .user-row .meta { flex: 1; min-width: 0; }
+  .user-row .name { font-weight: 700; font-size: 14px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .user-row .handle { font-size: 12px; color: var(--muted); font-family: var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .user-row .go {
+    width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-soft); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .user-row .go:hover { background: var(--grad-primary); color: white; border-color: transparent; transform: scale(1.1); }
+  .user-row .go svg { width: 14px; height: 14px; }
+
+  .link-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .link-row:last-child { border-bottom: 0; }
+  .link-row:hover { background: var(--surface-2); }
+  .link-row .ico { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+  .link-row .ico svg { width: 14px; height: 14px; display: block; }
+  .link-row .link-content { flex: 1; min-width: 0; }
+  .link-row .link-url { font-family: var(--mono); font-size: 12.5px; color: var(--cyan); word-break: break-all; display: block; }
+  .link-row .link-title { font-size: 13px; color: var(--text); margin-bottom: 2px; font-weight: 600; }
+  .link-row .link-source { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .list-card-row { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+  .list-card-row:last-child { border-bottom: 0; }
+  .list-card-row .lc-name { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+  .list-card-row .lc-meta { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 10px; }
+  .list-card-row .lc-desc { font-size: 13px; color: var(--text-soft); margin-top: 5px; }
+
+  /* ---------- CHART ---------- */
+  .chart-wrap { padding: 18px; }
+  .chart-bars { display: flex; align-items: flex-end; gap: 2px; height: 120px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .chart-bar {
+    flex: 1; min-width: 4px; border-radius: 3px 3px 0 0; min-height: 2px; position: relative;
+    background: var(--grad-primary); transition: filter 0.15s; cursor: help;
+    animation: barRise 0.6s ease both;
+  }
+  @keyframes barRise { from { height: 0 !important; } }
+  .chart-bar.peak { background: var(--grad-accent); }
+  .chart-bar:hover { filter: brightness(1.3); }
+  .chart-bar:hover::after {
+    content: attr(data-tip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    background: var(--text); color: var(--bg-base); padding: 4px 8px; border-radius: 4px;
+    font-size: 10px; font-family: var(--mono); white-space: nowrap; margin-bottom: 4px; pointer-events: none; z-index: 10;
+  }
+  .chart-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+  .chart-legend { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; font-size: 11px; color: var(--muted); }
+  .chart-legend .li { display: inline-flex; align-items: center; gap: 5px; }
+  .chart-legend .sw { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ---------- TIMELINE CHART ---------- */
+  .timeline-wrap { padding: 18px; }
+  .timeline-bars { display: flex; align-items: flex-end; gap: 1px; height: 100px; border-bottom: 1px solid var(--border); padding-bottom: 4px; overflow-x: auto; }
+  .timeline-bar {
+    min-width: 3px; flex: 1; border-radius: 2px 2px 0 0; min-height: 2px; position: relative;
+    background: var(--grad-primary); cursor: help;
+    animation: barRise 0.4s ease both;
+  }
+  .timeline-bar:hover { filter: brightness(1.4); }
+  .timeline-bar:hover::after {
+    content: attr(data-tip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    background: var(--text); color: var(--bg-base); padding: 4px 8px; border-radius: 4px;
+    font-size: 10px; font-family: var(--mono); white-space: nowrap; margin-bottom: 4px; pointer-events: none; z-index: 10;
+  }
+  .timeline-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+
+  /* ---------- TRUST METER ---------- */
+  .trust-meter-wrap { padding: 24px; display: flex; gap: 24px; align-items: center; }
+  @media (max-width: 600px) { .trust-meter-wrap { flex-direction: column; } }
+  .trust-gauge { position: relative; width: 200px; height: 120px; flex-shrink: 0; }
+  .trust-gauge svg { width: 100%; height: 100%; }
+  .trust-gauge-value {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    text-align: center; width: 100%;
+  }
+  .trust-gauge-value .num { font-size: 36px; font-weight: 900; font-family: var(--mono); }
+  .trust-gauge-value .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .trust-factors { flex: 1; min-width: 0; }
+  .trust-factors h3 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-soft); }
+  .factor-row {
+    display: flex; align-items: center; gap: 8px; padding: 6px 0;
+    font-size: 12.5px; border-bottom: 1px solid var(--border);
+  }
+  .factor-row:last-child { border-bottom: 0; }
+  .factor-row .f-ico { width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .factor-row .f-ico.good { background: rgba(16, 185, 129, 0.15); color: var(--ok); }
+  .factor-row .f-ico.bad { background: rgba(239, 68, 68, 0.15); color: var(--err); }
+  .factor-row .f-ico.neutral { background: var(--surface-3); color: var(--muted); }
+  .factor-row .f-ico svg { width: 11px; height: 11px; }
+  .factor-row .f-label { flex: 1; color: var(--text-soft); }
+  .factor-row .f-impact { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+  .factor-row .f-impact.good { color: var(--ok); }
+  .factor-row .f-impact.bad { color: var(--err); }
+
+  /* ---------- KV SUMMARY ---------- */
+  .kv-summary { padding: 14px 18px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .kv-summary { grid-template-columns: 1fr; } }
+  .kv-item { display: flex; flex-direction: column; gap: 2px; }
+  .kv-item .k { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+  .kv-item .vv { font-size: 14px; color: var(--text); font-weight: 700; }
+  .kv-item .vv.mono { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
+  .kv-item .vv small { color: var(--muted); font-size: 11px; font-weight: 400; }
+
+  /* ---------- LABEL CHIPS ---------- */
+  .label-chips { padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .label-chip {
+    font-size: 11px; padding: 4px 10px; border-radius: 999px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--surface-3); color: var(--text-soft); border: 1px solid var(--border);
+  }
+  .label-chip.warn { background: rgba(245, 158, 11, 0.15); color: var(--warn); }
+  .label-chip.err { background: rgba(239, 68, 68, 0.15); color: var(--err); }
+  .label-chip.ok { background: rgba(16, 185, 129, 0.15); color: var(--ok); }
+  .label-chip small { color: inherit; opacity: 0.7; font-weight: 400; }
+
+  /* ---------- STATES ---------- */
+  .empty { padding: 36px 20px; text-align: center; color: var(--muted); font-size: 13px; }
+  .empty svg { width: 38px; height: 38px; opacity: 0.4; margin-bottom: 8px; }
+
+  .err-card {
+    background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--text); padding: 14px 18px; border-radius: var(--radius);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .err-card .ico { color: var(--err); flex-shrink: 0; margin-top: 1px; }
+  .err-card .ico svg { width: 18px; height: 18px; }
+  .err-card .body { font-size: 13.5px; }
+  .err-card .body strong { display: block; margin-bottom: 2px; }
+
+  .loader-banner {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 18px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); color: var(--muted); font-size: 14px;
+    backdrop-filter: blur(20px);
+  }
+  .spinner {
+    width: 20px; height: 20px; border: 2px solid var(--border-strong);
+    border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .progress-bar {
+    width: 100%; height: 4px; background: var(--surface-3); border-radius: 2px; overflow: hidden; margin-top: 8px;
+  }
+  .progress-fill {
+    height: 100%; background: var(--grad-primary); border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .load-more-wrap { padding: 12px 18px; display: flex; justify-content: center; border-top: 1px solid var(--border); }
+  .load-more {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text-soft);
+    padding: 8px 18px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .load-more:hover:not(:disabled) { background: var(--grad-primary); color: white; border-color: transparent; }
+  .load-more:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* ---------- TOAST ---------- */
+  .toast-host {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 100; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none;
+  }
+  .toast {
+    background: var(--surface-solid); border: 1px solid var(--border-strong); color: var(--text);
+    padding: 10px 16px; border-radius: 10px; font-size: 13px; box-shadow: var(--shadow-lg);
+    pointer-events: auto; display: flex; align-items: center; gap: 8px;
+    animation: toastIn 0.3s ease; backdrop-filter: blur(20px);
+  }
+  .toast.err { border-color: var(--err); color: var(--err); }
+  .toast.ok { border-color: var(--ok); color: var(--ok); }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    max-width: 1400px; margin: 0 auto; padding: 32px 24px 48px;
+    color: var(--muted); font-size: 12px; text-align: center; border-top: 1px solid var(--border);
+  }
+  footer .soyuz-footer-mark { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  footer .soyuz-footer-mark img { width: 24px; height: 24px; border-radius: 50%; background: var(--grad-full); padding: 1.5px; }
+  footer .soyuz-footer-mark b { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--cyan-light); }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 640px) {
+    .topbar-inner { padding: 10px 14px; }
+    .brand-logo-wrap { width: 36px; height: 36px; }
+    .brand-title { font-size: 15px; }
+    .brand-sub { font-size: 9.5px; }
+    .conn-pill { display: none; }
+    .hero { padding: 36px 14px 18px; }
+    .soyuz-mark { padding: 6px 14px 6px 6px; }
+    .soyuz-mark-img { width: 26px; height: 26px; }
+    .search-box { flex-direction: column; padding: 10px; gap: 8px; }
+    .search-box button { padding: 12px; justify-content: center; }
+    main { padding: 18px 14px 60px; }
+    .profile-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .avatar { width: 80px; height: 80px; }
+    .profile-hero-inner { padding: 0 14px 14px; margin-top: -40px; }
+    .profile-banner { height: 110px; }
+    .trust-meter-wrap { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo-wrap"><img src="https://iili.io/nrJ7pQn.png" alt="Soyuz" /></div>
+        <div class="brand-text">
+          <span class="brand-title">Soyuz Lookup</span>
+          <span class="brand-sub"><b>Soyuz</b> · Bluesky Intelligence</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="connPill" class="conn-pill"><span class="dot"></span><span id="connText">Connecting…</span></span>
+        <button id="themeToggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="soyuz-mark">
+      <div class="soyuz-mark-img"><img src="https://iili.io/nrJ7pQn.png" alt="Soyuz" /></div>
+      <div class="soyuz-mark-text">A <b>Soyuz</b> Product</div>
+    </div>
+    <h1>Soyuz Lookup</h1>
+    <p>Comprehensive Bluesky profile intelligence — identity, hosting, network, behavior, engagement, full history, posting timeline, and trust analysis. Enter any handle, DID, or profile URL to begin.</p>
+    <form id="searchForm" class="search-box" autocomplete="off">
+      <input id="searchInput" type="text" placeholder="@handle.bsky.social · did:plc:… · https://bsky.app/profile/…" spellcheck="false" />
+      <button id="searchBtn" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Lookup
+      </button>
+    </form>
+    <div class="examples" id="examples">
+      <button data-q="bsky.app">bsky.app</button>
+      <button data-q="did:plc:ragtjsm2j2vknwkz3zp4oxrd">did:plc:ragtjsm2j2vknwkz3zp4oxrd</button>
+      <button data-q="https://bsky.app/profile/did:plc:ragtjsm2j2vknwkz3zp4oxrd">profile URL</button>
+    </div>
+  </section>
+
+  <main>
+    <div id="results" class="results hidden"></div>
+    <div id="loaderHost"></div>
+  </main>
+
+  <footer>
+    <div class="soyuz-footer-mark">
+      <img src="https://iili.io/nrJ7pQn.png" alt="Soyuz" />
+      <span>A <b>Soyuz</b> Product</span>
+    </div>
+    <div>Soyuz Lookup · Powered by the AT Protocol</div>
+    <div style="margin-top:6px;">For research and lawful use only.</div>
+  </footer>
+
+  <div class="toast-host" id="toastHost"></div>
+
+<script>
+'use strict';
+
+/* ---------- CONFIG ---------- */
+const CREDENTIALS = [
+  { identifier: 'helen-jpg.bsky.social',       password: 'ok76-clls-t2zi-bwim' },
+  { identifier: 'jennefer86bsky.bsky.social',  password: 'jo5r-4eza-47t6-7adi' },
+  { identifier: 'marie-jane.bsky.social',      password: '2r5b-yr3a-mjmg-hhbd' }
+];
+const BSKY_API = 'https://bsky.social/xrpc';
+const PLC_DIR  = 'https://plc.directory';
+const DOH_URL  = 'https://cloudflare-dns.com/dns-query';
+const IPAPI    = 'https://ipapi.co';
+const PAGINATION_LIMIT = 100;
+const FOLLOWER_FETCH_CAP = 500;
+const FOLLOWING_FETCH_CAP = 500;
+const FULL_FEED_CAP = 2000;
+
+const state = { sessions: [], currentSession: 0, authReady: false, authError: null };
+
+/* ---------- DOM ---------- */
+const $ = (s) => document.querySelector(s);
+const el = (tag, props = {}, ...children) => {
+  const n = document.createElement(tag);
+  for (const [k,v] of Object.entries(props)) {
+    if (k==='class') n.className=v;
+    else if (k==='html') n.innerHTML=v;
+    else if (k==='dataset') Object.assign(n.dataset,v);
+    else if (k.startsWith('on')&&typeof v==='function') n.addEventListener(k.slice(2).toLowerCase(),v);
+    else if (v!==null&&v!==undefined) n.setAttribute(k,v);
+  }
+  for (const c of children) {
+    if (c==null||c===false) continue;
+    n.appendChild(typeof c==='string'||typeof c==='number'?document.createTextNode(String(c)):c);
+  }
+  return n;
+};
+
+const ICONS = {
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  followers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M14 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  lists:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  at:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>',
+  server:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg>',
+  calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  activity:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+  arrowRight:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  hash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+  chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-5"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  repost:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>',
+  reply:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  key:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg>',
+  history:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5M12 7v5l4 2"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+  empty:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  radar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.07 4.93A10 10 0 0 1 21 12a9 9 0 0 1-9 9H3v-9a9 9 0 0 1 9-9 9 9 0 0 1 7.07 1.93z"/><path d="M12 12 3 3"/><circle cx="12" cy="12" r="1"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  timeline:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>',
+};
+
+/* ============================================================
+   AUTH
+   ============================================================ */
+async function createSession(c) {
+  const res = await fetch(`${BSKY_API}/com.atproto.server.createSession`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ identifier: c.identifier, password: c.password })
+  });
+  if (!res.ok) throw new Error(`createSession ${res.status}: ${await res.text().catch(()=> '')}`);
+  return res.json();
+}
+async function initSessions() {
+  setConn('busy', 'Authenticating…');
+  const ok = [], errors = [];
+  for (const c of CREDENTIALS) {
+    try { const s = await createSession(c); ok.push({ accessJwt: s.accessJwt, refreshJwt: s.refreshJwt, did: s.did, handle: s.handle }); }
+    catch (e) { errors.push(`${c.identifier}: ${e.message}`); }
+  }
+  if (ok.length === 0) { state.authError = errors.join(' | '); setConn('err', 'Auth failed'); return false; }
+  state.sessions = ok; state.currentSession = 0; state.authReady = true;
+  setConn('ok', `Connected · ${ok.length} session${ok.length>1?'s':''}`);
+  return true;
+}
+async function rotateSession() { state.currentSession = (state.currentSession + 1) % state.sessions.length; }
+
+async function apiGet(endpoint, params = {}) {
+  if (!state.authReady) { const ok = await initSessions(); if (!ok) throw new Error(`Auth failed: ${state.authError||''}`); }
+  const maxTries = state.sessions.length * 2; let lastErr = null;
+  for (let i = 0; i < maxTries; i++) {
+    const sess = state.sessions[state.currentSession];
+    if (!sess) { state.currentSession = 0; continue; }
+    const url = new URL(`${BSKY_API}/${endpoint}`);
+    for (const [k,v] of Object.entries(params)) { if (v!==undefined&&v!==null) url.searchParams.set(k,v); }
+    let res;
+    try { res = await fetch(url.toString(), { headers: { 'Authorization': `Bearer ${sess.accessJwt}`, 'Accept': 'application/json' } }); }
+    catch (e) { lastErr = new Error(`Network: ${e.message}`); await rotateSession(); continue; }
+    if (res.status===429||res.status===503) { await rotateSession(); lastErr = new Error(`Rate limit ${res.status}`); continue; }
+    if (res.status===401||res.status===403) { await rotateSession(); lastErr = new Error(`Auth ${res.status}`); continue; }
+    if (!res.ok) throw new Error(`${endpoint} → ${res.status}: ${(await res.text().catch(()=> '')).slice(0,300)}`);
+    return res.json();
+  }
+  throw lastErr || new Error(`Sessions exhausted for ${endpoint}`);
+}
+
+/* ============================================================
+   PARSING
+   ============================================================ */
+function parseInput(raw) {
+  let s = String(raw||'').trim(); if (!s) return null;
+  if (s.startsWith('@')) s = s.slice(1);
+  const m = s.match(/bsky\.app\/profile\/([^/?#]+)/i); if (m) s = decodeURIComponent(m[1]);
+  if (s.startsWith('did:plc:')||s.startsWith('did:web:')) return { did: s, handle: null };
+  return { did: null, handle: s };
+}
+async function getDidDocument(did) {
+  if (did.startsWith('did:plc:')) { const r = await fetch(`${PLC_DIR}/${encodeURIComponent(did)}`); if (!r.ok) throw new Error(`DID ${r.status}`); return r.json(); }
+  if (did.startsWith('did:web:')) { const host = did.replace('did:web:',''); const r = await fetch(`https://${host}/.well-known/did.json`); if (!r.ok) throw new Error(`DID ${r.status}`); return r.json(); }
+  throw new Error('Unsupported DID');
+}
+async function getPlcAuditLog(did) {
+  if (!did.startsWith('did:plc:')) return [];
+  try { const r = await fetch(`${PLC_DIR}/${encodeURIComponent(did)}/log/audit`); if (!r.ok) return []; return r.json(); } catch { return []; }
+}
+function extractPdsInfo(didDoc) {
+  if (!didDoc || !Array.isArray(didDoc.service)) return { pds: null, location: null, host: null };
+  const svc = didDoc.service.find(s => s.id && s.id.includes('#atproto_pds')) || didDoc.service[0];
+  if (!svc || !svc.serviceEndpoint) return { pds: null, location: null, host: null };
+  let url; try { url = new URL(svc.serviceEndpoint); } catch { return { pds: svc.serviceEndpoint, location: null, host: null }; }
+  const host = url.hostname;
+  let location = null;
+  const m = host.match(/\.([a-z]+-[a-z]+)\.host\.bsky\.network$/i);
+  if (m) {
+    const region = m[1].toLowerCase();
+    const map = { 'us-east':'United States · East','us-west':'United States · West','eu-west':'Europe · West','eu-central':'Europe · Central','sa-east':'South America · East','ap-southeast':'Asia Pacific · Southeast','ap-northeast':'Asia Pacific · Northeast','ap-south':'Asia Pacific · South' };
+    location = map[region] || region;
+  } else if (host.endsWith('.host.bsky.network')) location = 'Bluesky-managed (region unspecified)';
+  else location = `Self-hosted / 3rd-party PDS (${host})`;
+  return { pds: svc.serviceEndpoint, location, host };
+}
+async function resolveHostIps(hostname) {
+  try {
+    const r = await fetch(`${DOH_URL}?name=${encodeURIComponent(hostname)}&type=A`, { headers: { 'Accept': 'application/dns-json' } });
+    if (!r.ok) return [];
+    const d = await r.json();
+    return (d.Answer||[]).filter(a => a.type===1).map(a => a.data);
+  } catch { return []; }
+}
+async function fetchIpInfo(ip) {
+  try { const r = await fetch(`${IPAPI}/${ip}/json/`); if (!r.ok) return null; const d = await r.json(); return d.error ? null : d; } catch { return null; }
+}
+
+function formatDate(iso) { if (!iso) return '—'; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleString(undefined,{year:'numeric',month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'}); }
+function formatDateShort(iso) { if (!iso) return '—'; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'}); }
+function calcAge(iso) {
+  if (!iso) return null; const c = new Date(iso); if (isNaN(c)) return null;
+  const n = new Date(); let y=n.getFullYear()-c.getFullYear(), mo=n.getMonth()-c.getMonth(), d=n.getDate()-c.getDate();
+  if (d<0) { mo--; d+=new Date(n.getFullYear(),n.getMonth(),0).getDate(); }
+  if (mo<0) { y--; mo+=12; }
+  return { years:y, months:mo, days:d, totalDays: Math.floor((n-c)/86400000) };
+}
+function ageLabel(iso) { const a=calcAge(iso); if (!a) return '—'; const p=[]; if (a.years) p.push(`${a.years}y`); if (a.months) p.push(`${a.months}mo`); if (a.days&&!a.years) p.push(`${a.days}d`); return p.length?p.join(' '):'today'; }
+function timeAgo(iso) { if (!iso) return '—'; const d=new Date(iso); if(isNaN(d)) return iso; const s=Math.floor((Date.now()-d)/1000); if(s<60)return'just now'; if(s<3600)return`${Math.floor(s/60)}m ago`; if(s<86400)return`${Math.floor(s/3600)}h ago`; if(s<604800)return`${Math.floor(s/86400)}d ago`; if(s<2592000)return`${Math.floor(s/604800)}w ago`; if(s<31536000)return`${Math.floor(s/2592000)}mo ago`; return`${Math.floor(s/31536000)}y ago`; }
+function truncate(s,n) { return s&&s.length>n ? s.slice(0,n)+'…' : (s||''); }
+
+/* ============================================================
+   FETCHERS
+   ============================================================ */
+async function fetchProfile(actor) { return apiGet('app.bsky.actor.getProfile', { actor }); }
+async function fetchFollowers(did, cap, startCursor) {
+  const f=[]; let cursor=startCursor||undefined;
+  while (f.length<cap) {
+    const p={actor:did,limit:PAGINATION_LIMIT}; if(cursor) p.cursor=cursor;
+    const r=await apiGet('app.bsky.graph.getFollowers',p); f.push(...(r.followers||[])); cursor=r.cursor; if(!cursor)break;
+  }
+  return { items: f.slice(0,cap), nextCursor: cursor };
+}
+async function fetchFollowing(did, cap, startCursor) {
+  const f=[]; let cursor=startCursor||undefined;
+  while (f.length<cap) {
+    const p={actor:did,limit:PAGINATION_LIMIT}; if(cursor) p.cursor=cursor;
+    const r=await apiGet('app.bsky.graph.getFollows',p); f.push(...(r.follows||[])); cursor=r.cursor; if(!cursor)break;
+  }
+  return { items: f.slice(0,cap), nextCursor: cursor };
+}
+async function fetchLists(did) {
+  const l=[]; let cursor; do { const p={actor:did,limit:PAGINATION_LIMIT}; if(cursor)p.cursor=cursor; const r=await apiGet('app.bsky.graph.getLists',p); l.push(...(r.lists||[])); cursor=r.cursor; } while(cursor); return l;
+}
+async function fetchStarterPacks(did) {
+  try { const r=await apiGet('app.bsky.graph.getStarterPacks',{actor:did,limit:PAGINATION_LIMIT}); return r.starterPacks||[]; } catch { return []; }
+}
+
+// Fetch ALL posts for complete mention extraction — paginates through entire author feed
+async function fetchFullAuthorFeed(did, cap, onProgress) {
+  const feed = []; let cursor = undefined; let page = 0;
+  while (feed.length < cap) {
+    const params = { actor: did, limit: 100, filter: 'posts_no_replies' };
+    if (cursor) params.cursor = cursor;
+    const r = await apiGet('app.bsky.feed.getAuthorFeed', params);
+    const batch = r.feed || [];
+    feed.push(...batch);
+    page++;
+    if (onProgress) onProgress(feed.length, page);
+    cursor = r.cursor;
+    if (!cursor) break;
+    if (batch.length === 0) break;
+  }
+  return feed.slice(0, cap);
+}
+
+/* ============================================================
+   EXTRACTORS
+   ============================================================ */
+function extractMentionsFromFeed(feed) {
+  const map = new Map();
+  for (const item of feed) {
+    const post = item.post; if (!post || !post.record) continue;
+    const facets = post.record.facets || [];
+    for (const f of facets) {
+      for (const feat of (f.features || [])) {
+        if (feat.$type === 'app.bsky.richtext.facet#mention' && feat.did) {
+          const ex = map.get(feat.did) || { did: feat.did, handle: feat.handle || '', name: '', count: 0, firstSeen: post.indexedAt, lastSeen: post.indexedAt };
+          ex.count += 1;
+          if (!ex.handle && feat.handle) ex.handle = feat.handle;
+          if (post.indexedAt) { if (!ex.firstSeen || new Date(post.indexedAt) < new Date(ex.firstSeen)) ex.firstSeen = post.indexedAt; if (!ex.lastSeen || new Date(post.indexedAt) > new Date(ex.lastSeen)) ex.lastSeen = post.indexedAt; }
+          map.set(feat.did, ex);
+        }
+      }
+    }
+    if (post.record?.reply?.parent?.did) {
+      const did = post.record.reply.parent.did;
+      if (did !== post.author.did) {
+        const ex = map.get(did) || { did, handle: '', name: '', count: 0, firstSeen: post.indexedAt, lastSeen: post.indexedAt };
+        ex.count += 1;
+        if (post.indexedAt) { if (!ex.firstSeen || new Date(post.indexedAt) < new Date(ex.firstSeen)) ex.firstSeen = post.indexedAt; if (!ex.lastSeen || new Date(post.indexedAt) > new Date(ex.lastSeen)) ex.lastSeen = post.indexedAt; }
+        map.set(did, ex);
+      }
+    }
+  }
+  return Array.from(map.values()).sort((a,b) => b.count - a.count);
+}
+function extractLinksFromProfile(profile) {
+  const links = [];
+  if (profile?.description) { const re = /https?:\/\/[^\s)]+/gi; let m; while ((m=re.exec(profile.description))!==null) links.push({uri:m[0],title:'In bio',source:'profile description'}); }
+  return links;
+}
+function extractLinksFromFeed(feed) {
+  const map = new Map();
+  for (const item of feed) {
+    const post = item.post; if (!post || !post.record) continue;
+    const facets = post.record.facets || [];
+    for (const f of facets) { for (const feat of (f.features||[])) { if (feat.$type==='app.bsky.richtext.facet#link' && feat.uri) { const ex=map.get(feat.uri)||{uri:feat.uri,title:'In post',source:'post facet',count:0}; ex.count++; map.set(feat.uri,ex); } } }
+    const e = post.embed;
+    if (e?.$type==='app.bsky.embed.external#view' && e.external?.uri) { const ex=map.get(e.external.uri)||{uri:e.external.uri,title:e.external.title||e.external.description||'Embedded card',source:'post embed',count:0}; ex.count++; if(!ex.title||ex.title==='In post')ex.title=e.external.title||ex.title; map.set(e.external.uri,ex); }
+  }
+  return Array.from(map.values()).sort((a,b) => b.count-a.count);
+}
+function extractHashtags(feed) {
+  const map = new Map();
+  for (const item of feed) { const facets=item.post?.record?.facets||[]; for(const f of facets){ for(const feat of (f.features||[])){ if(feat.$type==='app.bsky.richtext.facet#tag'&&feat.tag) map.set(feat.tag,(map.get(feat.tag)||0)+1); } } }
+  return Array.from(map.entries()).map(([tag,count])=>({tag,count})).sort((a,b)=>b.count-a.count);
+}
+function extractTopDomains(links) {
+  const map = new Map();
+  for (const l of links) { try { const h=new URL(l.uri).hostname.replace(/^www\./,''); map.set(h,(map.get(h)||0)+(l.count||1)); } catch{} }
+  return Array.from(map.entries()).map(([domain,count])=>({domain,count})).sort((a,b)=>b.count-a.count);
+}
+function extractLastActive(feed) { let latest=null; for(const item of feed){ const t=item.post?.indexedAt||item.post?.record?.createdAt; if(t&&(!latest||new Date(t)>new Date(latest)))latest=t; } return latest; }
+
+function analyzePostingActivity(feed) {
+  const hourBuckets = new Array(24).fill(0);
+  let originalCount=0, replyCount=0, repostCount=0, mediaCount=0;
+  let totalLikes=0, totalReposts=0, totalReplies=0, totalQuotes=0;
+  let topPost=null, firstPost=null;
+  for (const item of feed) {
+    const post = item.post; if (!post) continue;
+    const date = new Date(post.indexedAt || post.record?.createdAt);
+    if (!isNaN(date)) hourBuckets[date.getUTCHours()]++;
+    if (item.reason?.$type==='app.bsky.feed.defs#reasonRepost') repostCount++;
+    else if (post.record?.reply) replyCount++;
+    else originalCount++;
+    if (post.embed?.$type==='app.bsky.embed.images#view'&&post.embed.images?.length) mediaCount++;
+    else if (post.embed?.$type==='app.bsky.embed.video#view') mediaCount++;
+    else if (post.embed?.$type==='app.bsky.embed.external#view') mediaCount++;
+    const likes=post.likeCount||0, reposts=post.repostCount||0, replies=post.replyCount||0, quotes=post.quoteCount||0;
+    totalLikes+=likes; totalReposts+=reposts; totalReplies+=replies; totalQuotes+=quotes;
+    const eng=likes+reposts+replies+quotes;
+    if (!topPost||eng>topPost.engagement) topPost={post,engagement:eng,likes,reposts,replies,quotes};
+    if (!firstPost||new Date(post.indexedAt)<new Date(firstPost.post.indexedAt)) firstPost={post,engagement:eng,likes,reposts,replies,quotes};
+  }
+  const maxCount=Math.max(...hourBuckets);
+  const peakHour=maxCount>0?hourBuckets.indexOf(maxCount):-1;
+  let bestSleepStart=0, bestSleepLen=0;
+  for (let start=0;start<24;start++){ let len=0; for(let i=0;i<24;i++){ const h=(start+i)%24; if(hourBuckets[h]<=maxCount*0.2)len++; else break; } if(len>bestSleepLen){bestSleepLen=len;bestSleepStart=start;} }
+  const wakeHourUtc=(bestSleepStart+bestSleepLen)%24;
+  let tzGuess=null;
+  if (bestSleepLen>=4) { let off=wakeHourUtc-8; if(off>12)off-=24; if(off<-12)off+=24; tzGuess=`UTC${off>=0?'+':''}${off}`; }
+  return { hourBuckets, peakHour, maxCount, tzGuess, analyzed:feed.length, originalCount, replyCount, repostCount, mediaCount,
+    avgLikes:feed.length?(totalLikes/feed.length).toFixed(1):'0', avgReposts:feed.length?(totalReposts/feed.length).toFixed(1):'0',
+    avgReplies:feed.length?(totalReplies/feed.length).toFixed(1):'0', avgQuotes:feed.length?(totalQuotes/feed.length).toFixed(1):'0',
+    totalLikes, totalReposts, totalReplies, totalQuotes, topPost, firstPost };
+}
+
+function extractPostingTimeline(feed, createdAt) {
+  // Group posts by day; if span > 180 days, group by week
+  const dayMap = new Map(); // dateKey -> count
+  const firstDate = createdAt ? new Date(createdAt) : new Date();
+  for (const item of feed) {
+    const t = item.post?.indexedAt || item.post?.record?.createdAt;
+    if (!t) continue;
+    const d = new Date(t);
+    if (isNaN(d)) continue;
+    const key = d.toISOString().slice(0, 10); // YYYY-MM-DD
+    dayMap.set(key, (dayMap.get(key) || 0) + 1);
+  }
+  // Build full timeline from account creation to now
+  const now = new Date();
+  const span = Math.ceil((now - firstDate) / 86400000);
+  const useWeeks = span > 180;
+  const buckets = [];
+  if (useWeeks) {
+    // Group by week
+    const weekMap = new Map();
+    for (const [dayKey, count] of dayMap.entries()) {
+      const d = new Date(dayKey);
+      const weekStart = new Date(d);
+      weekStart.setDate(d.getDate() - d.getDay());
+      const wk = weekStart.toISOString().slice(0, 10);
+      weekMap.set(wk, (weekMap.get(wk) || 0) + count);
+    }
+    // fill all weeks from creation to now
+    const start = new Date(firstDate);
+    start.setDate(start.getDate() - start.getDay());
+    const cursor = new Date(start);
+    while (cursor <= now) {
+      const wk = cursor.toISOString().slice(0, 10);
+      buckets.push({ date: wk, count: weekMap.get(wk) || 0, label: cursor.toLocaleDateString(undefined,{month:'short',day:'numeric'}) });
+      cursor.setDate(cursor.getDate() + 7);
+    }
+  } else {
+    // Daily
+    const cursor = new Date(firstDate);
+    cursor.setHours(0, 0, 0, 0);
+    while (cursor <= now) {
+      const key = cursor.toISOString().slice(0, 10);
+      buckets.push({ date: key, count: dayMap.get(key) || 0, label: cursor.toLocaleDateString(undefined,{month:'short',day:'numeric'}) });
+      cursor.setDate(cursor.getDate() + 1);
+    }
+  }
+  const maxCount = Math.max(...buckets.map(b => b.count), 1);
+  const totalPosts = buckets.reduce((s, b) => s + b.count, 0);
+  const peakBucket = buckets.reduce((best, b) => b.count > best.count ? b : best, { count: 0, date: null, label: '' });
+  return { buckets, maxCount, totalPosts, peakBucket, useWeeks, span };
+}
+
+/* ============================================================
+   TRUST SCORE — AI/Scammer likelihood
+   ============================================================ */
+function calculateTrustScore(profile, analysis, lists, feed) {
+  let score = 50;
+  const factors = [];
+  const age = calcAge(profile.createdAt);
+
+  // 1. Account age
+  if (age) {
+    if (age.totalDays > 730) { score += 15; factors.push({ label: 'Account > 2 years old', impact: 15, type: 'good' }); }
+    else if (age.totalDays > 365) { score += 8; factors.push({ label: 'Account > 1 year old', impact: 8, type: 'good' }); }
+    else if (age.totalDays > 90) { score += 2; factors.push({ label: 'Account > 3 months old', impact: 2, type: 'good' }); }
+    else { score -= 20; factors.push({ label: 'Account < 3 months old (new)', impact: -20, type: 'bad' }); }
+  }
+
+  // 2. Follower/following ratio
+  const followers = profile.followersCount || 0;
+  const following = profile.followsCount || 0;
+  if (followers > 100 && following > 0 && followers / following > 2) { score += 10; factors.push({ label: 'Healthy follower-to-following ratio', impact: 10, type: 'good' }); }
+  else if (following > 10 && followers < 10) { score -= 15; factors.push({ label: 'Following many, followed by few', impact: -15, type: 'bad' }); }
+  else if (following > 500 && followers < 50) { score -= 20; factors.push({ label: 'Mass-following pattern (bot-like)', impact: -20, type: 'bad' }); }
+
+  // 3. Avatar & banner
+  if (profile.avatar) { score += 5; factors.push({ label: 'Has profile avatar', impact: 5, type: 'good' }); }
+  else { score -= 10; factors.push({ label: 'No avatar (default)', impact: -10, type: 'bad' }); }
+  if (profile.banner) { score += 3; factors.push({ label: 'Has profile banner', impact: 3, type: 'good' }); }
+
+  // 4. Bio
+  if (profile.description) {
+    if (profile.description.length > 80) { score += 8; factors.push({ label: 'Detailed bio (>80 chars)', impact: 8, type: 'good' }); }
+    else { score += 3; factors.push({ label: 'Has bio', impact: 3, type: 'good' }); }
+  } else { score -= 10; factors.push({ label: 'No bio', impact: -10, type: 'bad' }); }
+
+  // 5. Verification
+  if (profile.verification?.verifiedStatus === 'valid') { score += 20; factors.push({ label: 'Verified by trusted issuer', impact: 20, type: 'good' }); }
+
+  // 6. Warning labels
+  const warnLabels = (profile.labels || []).filter(l => l.val?.startsWith('!') || ['porn','sexual','nudity','graphic-media','doxxing','dmca-violation','impersonation'].includes(l.val));
+  if (warnLabels.length) { score -= 25; factors.push({ label: `Warning labels: ${warnLabels.map(l=>l.val).join(', ')}`, impact: -25, type: 'bad' }); }
+
+  // 7. Posting behavior from analysis
+  if (analysis.analyzed > 10) {
+    const replyPct = analysis.replyCount / analysis.analyzed;
+    const originalPct = analysis.originalCount / analysis.analyzed;
+    // Bots rarely reply
+    if (replyPct < 0.05 && analysis.analyzed > 20) { score -= 15; factors.push({ label: 'Very low reply ratio (bot-like)', impact: -15, type: 'bad' }); }
+    else if (replyPct > 0.3) { score += 8; factors.push({ label: 'Active replier (human-like)', impact: 8, type: 'good' }); }
+    // Very high original-only rate with low engagement
+    if (originalPct > 0.9 && parseFloat(analysis.avgLikes) < 1) { score -= 10; factors.push({ label: 'Mostly original posts, no engagement (spam-like)', impact: -10, type: 'bad' }); }
+    // Engagement
+    const avgL = parseFloat(analysis.avgLikes);
+    if (avgL > 20) { score += 8; factors.push({ label: 'Strong engagement', impact: 8, type: 'good' }); }
+    else if (avgL < 0.3 && analysis.analyzed > 20) { score -= 8; factors.push({ label: 'Very low engagement', impact: -8, type: 'bad' }); }
+  }
+
+  // 8. Timezone regularity — perfectly uniform posting = bot
+  if (analysis.maxCount > 0 && analysis.analyzed > 30) {
+    const variance = analysis.hourBuckets.reduce((s, c) => s + Math.pow(c - analysis.analyzed/24, 2), 0) / 24;
+    const cv = Math.sqrt(variance) / (analysis.analyzed/24);
+    if (cv < 0.3) { score -= 12; factors.push({ label: 'Posting too uniform across hours (bot-like)', impact: -12, type: 'bad' }); }
+  }
+
+  // 9. Joined via starter pack
+  if (profile.joinedViaStarterPack) { score += 3; factors.push({ label: 'Joined via starter pack (legit onboarding)', impact: 3, type: 'good' }); }
+
+  // 10. Lists created (community involvement)
+  if (lists.length > 0) { score += 5; factors.push({ label: `Created ${lists.length} list(s)`, impact: 5, type: 'good' }); }
+
+  // 11. Posts count — very low with old account = dormant/suspicious
+  if ((profile.postsCount || 0) < 5 && age && age.totalDays > 180) { score -= 8; factors.push({ label: 'Old account but almost no posts', impact: -8, type: 'bad' }); }
+
+  score = Math.max(0, Math.min(100, Math.round(score)));
+  let category, color;
+  if (score >= 75) { category = 'Likely Legitimate'; color = 'ok'; }
+  else if (score >= 55) { category = 'Probably OK'; color = 'ok'; }
+  else if (score >= 35) { category = 'Suspicious'; color = 'warn'; }
+  else { category = 'High Risk'; color = 'err'; }
+  const aiBotScore = 100 - score;
+  return { score, category, color, factors, aiBotScore };
+}
+
+/* ============================================================
+   RENDER HELPERS
+   ============================================================ */
+function setConn(state, text) {
+  const pill = $('#connPill'); pill.classList.remove('ok','err','busy');
+  pill.classList.add(state==='ok'?'ok':state==='err'?'err':'busy');
+  $('#connText').textContent = text;
+}
+function toast(msg, kind='') {
+  const t = el('div', { class: `toast ${kind}` }, msg); $('#toastHost').appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+function emptyState(msg) { return el('div', { class: 'empty' }, el('div', { html: ICONS.empty }), el('div', {}, msg)); }
+function errCard(title, body) { return el('div', { class: 'err-card' }, el('div', { class: 'ico', html: ICONS.alert }), el('div', { class: 'body' }, el('strong', {}, title), el('div', {}, body))); }
+
+function animateCount(element, target, duration = 800) {
+  const start = 0; const startTime = performance.now();
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(start + (target - start) * eased);
+    element.textContent = current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+    else element.textContent = target.toLocaleString();
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============================================================
+   RENDER — PROFILE HERO
+   ============================================================ */
+function renderProfileCard(profile, didDoc, lastActive) {
+  const card = el('div', { class: 'card' });
+  const hero = el('div', { class: 'profile-hero' });
+  if (profile.banner) hero.appendChild(el('div', { class: 'profile-banner', style: `background-image: url('${profile.banner}')` }));
+  else hero.appendChild(el('div', { class: 'profile-banner', style: `background: var(--grad-full)` }));
+  const inner = el('div', { class: 'profile-hero-inner' });
+  const top = el('div', { class: 'profile-top' });
+  top.appendChild(el('img', { class: 'avatar', src: profile.avatar || '', alt: profile.displayName || profile.handle, onerror: function(){ this.style.visibility='hidden'; } }));
+  const meta = el('div', { class: 'profile-meta' });
+  const nameRow = el('div', { class: 'profile-name' }, el('span', {}, profile.displayName || profile.handle),
+    profile.verification?.verifiedStatus === 'valid' ? el('span', { class: 'verified-badge', html: ICONS.check, title: 'Verified' }) : null);
+  meta.appendChild(nameRow);
+  meta.appendChild(el('div', { class: 'profile-handle' }, '@' + profile.handle));
+  if (profile.description) meta.appendChild(el('p', { class: 'profile-bio' }, profile.description));
+  const tags = el('div', { class: 'profile-tags' });
+  if (profile.viewer?.following) tags.appendChild(el('span', { class: 'tag primary' }, 'You follow'));
+  if (profile.viewer?.followedBy) tags.appendChild(el('span', { class: 'tag accent' }, 'Follows you'));
+  if (profile.viewer?.muted) tags.appendChild(el('span', { class: 'tag warn' }, 'Muted'));
+  if (profile.viewer?.blockedBy) tags.appendChild(el('span', { class: 'tag err' }, 'Blocked by them'));
+  if (profile.joinedViaStarterPack) tags.appendChild(el('span', { class: 'tag ok' }, 'Joined via starter pack'));
+  meta.appendChild(tags);
+  top.appendChild(meta);
+  inner.appendChild(top);
+  hero.appendChild(inner);
+  card.appendChild(hero);
+
+  const stats = el('div', { class: 'stat-row' });
+  const mkStat = (n, l) => {
+    const statEl = el('div', { class: 'stat' });
+    const numEl = el('div', { class: 'n' }, '0');
+    statEl.appendChild(numEl);
+    statEl.appendChild(el('div', { class: 'l' }, l));
+    if (typeof n === 'number') animateCount(numEl, n);
+    else { numEl.textContent = n; }
+    return statEl;
+  };
+  stats.appendChild(mkStat(profile.followersCount ?? 0, 'Followers'));
+  stats.appendChild(mkStat(profile.followsCount ?? 0, 'Following'));
+  stats.appendChild(mkStat(profile.postsCount ?? 0, 'Posts'));
+  stats.appendChild(mkStat(ageLabel(profile.createdAt), 'Age'));
+  card.appendChild(stats);
+  return card;
+}
+
+/* ============================================================
+   RENDER — IDENTITY CARD
+   ============================================================ */
+function renderIdentityCard(profile, didDoc, lastActive, plcLog) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.shield }), 'Identity & Account')));
+  const body = el('div', { class: 'card-body flush' });
+  const info = el('div', { class: 'info-grid' });
+  const mk = (label, node) => el('div', { class: 'info-cell' }, el('div', { class: 'l' }, label), el('div', { class: 'v' }, node));
+  info.appendChild(mk('DID', el('span', { class: 'mono' }, profile.did || '—')));
+  info.appendChild(mk('Handle', el('span', { class: 'mono' }, profile.handle || '—')));
+  info.appendChild(mk('Account Created', el('span', {}, formatDate(profile.createdAt), el('br'), el('small', {}, `Age: ${ageLabel(profile.createdAt)} (${calcAge(profile.createdAt)?.totalDays ?? 0} days)`))));
+  info.appendChild(mk('Last Active', el('span', {}, lastActive ? formatDate(lastActive) : '—', el('br'), el('small', {}, lastActive ? timeAgo(lastActive) : 'no recent posts'))));
+  info.appendChild(mk('Indexed At', el('span', {}, formatDate(profile.indexedAt))));
+  info.appendChild(mk('DID Method', el('span', {}, profile.did?.startsWith('did:plc:') ? 'did:plc (Bluesky PLC)' : profile.did?.startsWith('did:web:') ? 'did:web (self-hosted)' : '—')));
+  let accountType = 'Individual';
+  if (profile.associated?.labeler) accountType = 'Labeler Service';
+  else if (profile.associated?.feedgens) accountType = 'Feed Generator';
+  info.appendChild(mk('Account Type', el('span', {}, accountType)));
+  if (plcLog && plcLog.length) {
+    info.appendChild(mk('DID Operations', el('span', {}, `${plcLog.length} operation${plcLog.length>1?'s':''}`, el('br'), el('small', {}, `first: ${formatDateShort(plcLog[0].createdAt)}`))));
+  } else {
+    info.appendChild(mk('Posts Count', el('span', {}, String(profile.postsCount ?? 0))));
+  }
+  body.appendChild(info); card.appendChild(body);
+  return card;
+}
+
+/* ============================================================
+   RENDER — SERVER CARD (no disclaimer)
+   ============================================================ */
+function renderServerCard(profile, didDoc, dnsInfo, ipInfo) {
+  const pds = extractPdsInfo(didDoc);
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.server }), 'Server & Hosting')));
+  const body = el('div', { class: 'card-body flush' });
+  const info = el('div', { class: 'info-grid' });
+  const mk = (label, node) => el('div', { class: 'info-cell' }, el('div', { class: 'l' }, label), el('div', { class: 'v' }, node));
+  info.appendChild(mk('PDS Endpoint', el('span', { class: 'mono' }, pds.pds || '—')));
+  info.appendChild(mk('PDS Region', el('span', {}, pds.location || '—')));
+  info.appendChild(mk('PDS Hostname', el('span', { class: 'mono' }, pds.host || '—')));
+  info.appendChild(mk('PDS IP Address', el('span', { class: 'mono' }, dnsInfo?.ips?.length ? dnsInfo.ips.join(', ') : '—', el('br'), el('small', {}, dnsInfo?.ips?.length ? 'resolved via DNS-over-HTTPS' : 'DNS resolution failed'))));
+  if (ipInfo) {
+    info.appendChild(mk('PDS Hosting Org', el('span', {}, ipInfo.org || '—', el('br'), el('small', {}, ipInfo.asn ? `ASN: ${ipInfo.asn}` : ''))));
+    info.appendChild(mk('PDS Datacenter', el('span', {}, [ipInfo.city, ipInfo.region, ipInfo.country_name].filter(Boolean).join(', ') || '—', el('br'), el('small', {}, ipInfo.timezone || ''))));
+  } else {
+    info.appendChild(mk('PDS Hosting Org', el('span', {}, '—')));
+    info.appendChild(mk('PDS Datacenter', el('span', {}, '—')));
+  }
+  body.appendChild(info); card.appendChild(body);
+  return card;
+}
+
+/* ============================================================
+   RENDER — TRUST METER (AI/Scammer radar)
+   ============================================================ */
+function renderTrustMeter(trust) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.radar }), 'Trust Analysis · AI / Scammer Radar')));
+  const body = el('div', { class: 'card-body flush' });
+  const wrap = el('div', { class: 'trust-meter-wrap' });
+
+  // SVG gauge — semicircle
+  const gauge = el('div', { class: 'trust-gauge' });
+  const score = trust.score;
+  const angle = 180 - (score / 100) * 180; // 180=left, 0=right
+  const rad = (angle * Math.PI) / 180;
+  const cx = 100, cy = 100, r = 80;
+  const needleX = cx + r * 0.85 * Math.cos(rad);
+  const needleY = cy - r * 0.85 * Math.sin(rad);
+  // arc path
+  const arcStart = { x: cx - r, y: cy };
+  const arcEnd = { x: cx + r, y: cy };
+  // colored segments
+  const segments = [
+    { from: 0, to: 35, color: '#ef4444' },
+    { from: 35, to: 55, color: '#f59e0b' },
+    { from: 55, to: 75, color: '#84cc16' },
+    { from: 75, to: 100, color: '#10b981' },
+  ];
+  let segPaths = '';
+  for (const seg of segments) {
+    const a1 = (180 - (seg.from / 100) * 180) * Math.PI / 180;
+    const a2 = (180 - (seg.to / 100) * 180) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(a1), y1 = cy - r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy - r * Math.sin(a2);
+    segPaths += `<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" stroke="${seg.color}" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.85"/>`;
+  }
+  gauge.innerHTML = `
+    <svg viewBox="0 0 200 110">
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      ${segPaths}
+      <line x1="${cx}" y1="${cy}" x2="${needleX}" y2="${needleY}" stroke="var(--text)" stroke-width="3" stroke-linecap="round" filter="url(#glow)" style="transition: all 1s ease;"/>
+      <circle cx="${cx}" cy="${cy}" r="6" fill="var(--text)"/>
+    </svg>`;
+  const valDiv = el('div', { class: 'trust-gauge-value' });
+  const numEl = el('div', { class: 'num', style: `color: var(--${trust.color})` }, '0');
+  valDiv.appendChild(numEl);
+  valDiv.appendChild(el('div', { class: 'lbl' }, trust.category));
+  gauge.appendChild(valDiv);
+  // animate the number
+  animateCount(numEl, trust.score, 1000);
+  wrap.appendChild(gauge);
+
+  // Factors
+  const factorsDiv = el('div', { class: 'trust-factors' });
+  factorsDiv.appendChild(el('h3', {}, `AI/Scammer Likelihood: ${trust.aiBotScore}%`));
+  for (const f of trust.factors) {
+    const row = el('div', { class: 'factor-row' });
+    row.appendChild(el('div', { class: `f-ico ${f.type}`, html: f.type === 'good' ? ICONS.check : f.type === 'bad' ? ICONS.alert : ICONS.info }));
+    row.appendChild(el('div', { class: 'f-label' }, f.label));
+    row.appendChild(el('div', { class: `f-impact ${f.type}` }, (f.impact > 0 ? '+' : '') + f.impact));
+    factorsDiv.appendChild(row);
+  }
+  wrap.appendChild(factorsDiv);
+  body.appendChild(wrap);
+  card.appendChild(body);
+  return card;
+}
+
+/* ============================================================
+   RENDER — POSTING TIMELINE
+   ============================================================ */
+function renderPostingTimeline(timeline) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' },
+    el('h2', {}, el('span', { class: 'ico', html: ICONS.timeline }), 'Posting Timeline'),
+    el('span', { class: 'count-chip' }, `${timeline.useWeeks ? 'Weekly' : 'Daily'} · ${timeline.buckets.length} ${timeline.useWeeks ? 'weeks' : 'days'} · ${timeline.totalPosts} posts`)
+  ));
+  const body = el('div', { class: 'card-body flush' });
+  const wrap = el('div', { class: 'timeline-wrap' });
+  const bars = el('div', { class: 'timeline-bars' });
+  // show max 200 bars for performance
+  const displayBuckets = timeline.buckets.length > 200 ? timeline.buckets.slice(-200) : timeline.buckets;
+  for (let i = 0; i < displayBuckets.length; i++) {
+    const b = displayBuckets[i];
+    const height = timeline.maxCount > 0 ? (b.count / timeline.maxCount) * 100 : 0;
+    const isPeak = b.date === timeline.peakBucket.date && b.count > 0;
+    bars.appendChild(el('div', {
+      class: `timeline-bar ${isPeak ? 'peak' : ''}`,
+      style: `height: ${Math.max(height, 1)}%; ${isPeak ? 'background: var(--grad-accent);' : ''} animation-delay: ${i * 0.005}s;`,
+      'data-tip': `${b.label}: ${b.count} post${b.count !== 1 ? 's' : ''}`
+    }));
+  }
+  wrap.appendChild(bars);
+  // labels
+  if (displayBuckets.length > 0) {
+    wrap.appendChild(el('div', { class: 'timeline-labels' },
+      el('span', {}, displayBuckets[0].label),
+      el('span', {}, displayBuckets[Math.floor(displayBuckets.length / 2)].label),
+      el('span', {}, displayBuckets[displayBuckets.length - 1].label)
+    ));
+  }
+  // peak info
+  wrap.appendChild(el('div', { class: 'chart-legend' },
+    el('span', { class: 'li' }, el('span', { class: 'sw', style: 'background: var(--grad-primary)' }), 'Posts per ' + (timeline.useWeeks ? 'week' : 'day')),
+    timeline.peakBucket.count > 0 ? el('span', { class: 'li' }, el('span', { class: 'sw', style: 'background: var(--grad-accent)' }), `Peak: ${timeline.peakBucket.label} (${timeline.peakBucket.count} posts)`) : null,
+    el('span', { class: 'li' }, `Span: ${timeline.span} days since creation`)
+  ));
+  body.appendChild(wrap); card.appendChild(body);
+  return card;
+}
+
+/* ============================================================
+   RENDER — POSTING ACTIVITY PATTERN (hourly)
+   ============================================================ */
+function renderPostingActivityCard(analysis) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' },
+    el('h2', {}, el('span', { class: 'ico', html: ICONS.chart }), 'Posting Activity by Hour'),
+    el('span', { class: 'count-chip' }, `${analysis.analyzed} posts analyzed`)
+  ));
+  const body = el('div', { class: 'card-body flush' });
+  const wrap = el('div', { class: 'chart-wrap' });
+  const bars = el('div', { class: 'chart-bars' });
+  for (let h = 0; h < 24; h++) {
+    const count = analysis.hourBuckets[h];
+    const height = analysis.maxCount > 0 ? (count / analysis.maxCount) * 100 : 0;
+    const isPeak = h === analysis.peakHour;
+    bars.appendChild(el('div', {
+      class: `chart-bar ${isPeak ? 'peak' : ''}`,
+      style: `height: ${Math.max(height, 2)}%; animation-delay: ${h * 0.03}s;`,
+      'data-tip': `${h}:00 UTC · ${count} post${count !== 1 ? 's' : ''}`
+    }));
+  }
+  wrap.appendChild(bars);
+  wrap.appendChild(el('div', { class: 'chart-labels' }, el('span',{},'00'), el('span',{},'06'), el('span',{},'12'), el('span',{},'18'), el('span',{},'23')));
+  wrap.appendChild(el('div', { class: 'chart-legend' },
+    el('span', { class: 'li' }, el('span', { class: 'sw', style: 'background: var(--grad-primary)' }), 'Posting volume (UTC hour)'),
+    el('span', { class: 'li' }, el('span', { class: 'sw', style: 'background: var(--grad-accent)' }), `Peak: ${analysis.peakHour >= 0 ? analysis.peakHour + ':00 UTC' : '—'}`)
+  ));
+  body.appendChild(wrap);
+  const summary = el('div', { class: 'kv-summary' });
+  const mkKv = (k, v, sub) => el('div', { class: 'kv-item' }, el('div', { class: 'k' }, k), el('div', { class: 'vv' }, v, sub ? el('small', {}, sub) : null));
+  summary.appendChild(mkKv('Estimated Timezone', analysis.tzGuess || 'Insufficient data', 'inferred from sleep/wake pattern'));
+  summary.appendChild(mkKv('Original Posts', String(analysis.originalCount), `${analysis.analyzed ? Math.round(analysis.originalCount / analysis.analyzed * 100) : 0}% of analyzed`));
+  summary.appendChild(mkKv('Replies', String(analysis.replyCount), `${analysis.analyzed ? Math.round(analysis.replyCount / analysis.analyzed * 100) : 0}% of analyzed`));
+  summary.appendChild(mkKv('Reposts', String(analysis.repostCount), `${analysis.analyzed ? Math.round(analysis.repostCount / analysis.analyzed * 100) : 0}% of analyzed`));
+  summary.appendChild(mkKv('Posts with Media', String(analysis.mediaCount), 'images, video, or cards'));
+  summary.appendChild(mkKv('Posts Analyzed', String(analysis.analyzed), 'all posts scanned'));
+  body.appendChild(summary);
+  card.appendChild(body);
+  return card;
+}
+
+/* ============================================================
+   RENDER — ENGAGEMENT
+   ============================================================ */
+function renderEngagementCard(analysis) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.heart }), 'Engagement Stats')));
+  const body = el('div', { class: 'card-body flush' });
+  const summary = el('div', { class: 'kv-summary' });
+  const mkKv = (k, v, sub, icon) => el('div', { class: 'kv-item' }, el('div', { class: 'k' }, icon ? el('span', { html: icon, style: 'width:11px;height:11px;display:inline-flex;opacity:0.7' }) : null, k), el('div', { class: 'vv' }, v, sub ? el('small', {}, sub) : null));
+  summary.appendChild(mkKv('Avg Likes / Post', analysis.avgLikes, `total: ${analysis.totalLikes}`, ICONS.heart));
+  summary.appendChild(mkKv('Avg Reposts / Post', analysis.avgReposts, `total: ${analysis.totalReposts}`, ICONS.repost));
+  summary.appendChild(mkKv('Avg Replies / Post', analysis.avgReplies, `total: ${analysis.totalReplies}`, ICONS.reply));
+  summary.appendChild(mkKv('Avg Quotes / Post', analysis.avgQuotes, `total: ${analysis.totalQuotes}`, ICONS.repost));
+  body.appendChild(summary);
+  if (analysis.topPost?.post) {
+    body.appendChild(el('div', { class: 'card-head', style: 'border-top:1px solid var(--border);border-bottom:1px solid var(--border)' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.star }), 'Top Post by Engagement')));
+    body.appendChild(renderPostPreview(analysis.topPost.post, analysis.topPost));
+  }
+  card.appendChild(body);
+  return card;
+}
+
+function renderPostPreview(post, stats) {
+  const wrap = el('div', { class: 'post-preview', style: 'padding:14px 18px;border-bottom:1px solid var(--border)' });
+  const text = post.record?.text || '';
+  wrap.appendChild(el('p', { class: 'pp-text', style: 'font-size:13.5px;color:var(--text);margin:0 0 6px;white-space:pre-wrap;word-break:break-word;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;' }, text));
+  const meta = el('div', { class: 'pp-meta', style: 'font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px;' });
+  meta.appendChild(el('span', {}, formatDate(post.indexedAt)));
+  if (stats) {
+    meta.appendChild(el('span', {}, `${stats.likes} likes`));
+    meta.appendChild(el('span', {}, `${stats.reposts} reposts`));
+    meta.appendChild(el('span', {}, `${stats.replies} replies`));
+  }
+  if (post.uri) { const parts = post.uri.split('/'); const rkey = parts[parts.length-1]; const handle = post.author?.handle || 'unknown'; meta.appendChild(el('a', { href: `https://bsky.app/profile/${handle}/post/${rkey}`, target: '_blank', rel: 'noopener noreferrer' }, 'Open →')); }
+  wrap.appendChild(meta);
+  return wrap;
+}
+
+/* ============================================================
+   RENDER — HASHTAGS / DOMAINS
+   ============================================================ */
+function renderHashtagsCard(tags) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.hash }), 'Top Hashtags'), el('span', { class: 'count-chip' }, String(tags.length))));
+  const body = el('div', { class: 'card-body flush' });
+  if (!tags.length) body.appendChild(emptyState('No hashtags used.'));
+  else { const w = el('div', { class: 'label-chips' }); for (const t of tags.slice(0, 30)) w.appendChild(el('span', { class: 'label-chip' }, `#${t.tag}`, el('small', {}, `${t.count}×`))); body.appendChild(w); }
+  card.appendChild(body); return card;
+}
+function renderDomainsCard(domains) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.globe }), 'Top Domains Linked'), el('span', { class: 'count-chip' }, String(domains.length))));
+  const body = el('div', { class: 'card-body flush' });
+  if (!domains.length) body.appendChild(emptyState('No external domains linked.'));
+  else { for (const d of domains.slice(0, 15)) { body.appendChild(el('div', { class: 'user-row' }, el('div', { class: 'meta' }, el('div', { class: 'name' }, d.domain), el('div', { class: 'handle' }, `${d.count} link${d.count>1?'s':''}`)), el('a', { class: 'go', href: `https://${d.domain}`, target: '_blank', rel: 'noopener noreferrer nofollow', title: 'Open', html: ICONS.arrowRight }))); } }
+  card.appendChild(body); return card;
+}
+
+/* ============================================================
+   RENDER — ACTOR LIST / LINKS / LISTS / MENTIONS
+   ============================================================ */
+function renderActorListCard(title, icon, actors, totalCount, kind, loadMoreFn) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: icon }), title, el('span', { class: 'count-chip' }, `${actors.length}${totalCount != null && totalCount > actors.length ? ' / ' + totalCount : ''}`))));
+  const body = el('div', { class: 'card-body flush' });
+  const list = el('div', { class: 'list-scroll', id: `${kind}-list` });
+  if (!actors.length) list.appendChild(emptyState('No accounts found.'));
+  else for (const a of actors) list.appendChild(renderUserRow(a));
+  body.appendChild(list); card.appendChild(body);
+  const hasMore = loadMoreFn && (totalCount == null || totalCount > actors.length);
+  if (hasMore) {
+    const wrap = el('div', { class: 'load-more-wrap' });
+    const btn = el('button', { class: 'load-more' }, `Load more${totalCount != null ? ` (showing ${actors.length} of ${totalCount})` : ` (loaded ${actors.length})`}`);
+    btn.addEventListener('click', async () => {
+      btn.disabled = true; btn.textContent = 'Loading…';
+      try { const more = await loadMoreFn(); if (!more || !more.length) { btn.remove(); return; } for (const a of more) list.appendChild(renderUserRow(a)); actors.push(...more); btn.textContent = `Load more${totalCount != null ? ` (showing ${actors.length} of ${totalCount})` : ` (loaded ${actors.length})`}`; btn.disabled = false; if (totalCount != null && actors.length >= totalCount) btn.remove(); }
+      catch (e) { toast(e.message, 'err'); btn.disabled = false; btn.textContent = 'Retry'; }
+    });
+    wrap.appendChild(btn); card.appendChild(wrap);
+  }
+  return card;
+}
+function renderUserRow(a) {
+  const row = el('div', { class: 'user-row' });
+  row.appendChild(el('img', { src: a.avatar || '', alt: '', onerror: function(){ this.style.visibility='hidden'; } }));
+  row.appendChild(el('div', { class: 'meta' }, el('div', { class: 'name' }, a.displayName || a.handle), el('div', { class: 'handle' }, '@' + a.handle)));
+  const go = el('button', { class: 'go', title: 'Lookup', html: ICONS.arrowRight });
+  go.addEventListener('click', () => { $('#searchInput').value = a.handle; $('#searchForm').requestSubmit(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  row.appendChild(go);
+  return row;
+}
+function renderLinksCard(title, icon, links) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: icon }), title, el('span', { class: 'count-chip' }, String(links.length)))));
+  const body = el('div', { class: 'card-body flush' });
+  if (!links.length) body.appendChild(emptyState('No links found.'));
+  else { const scroll = el('div', { class: 'list-scroll' }); for (const l of links) { const row = el('div', { class: 'link-row' }); row.appendChild(el('div', { class: 'ico', html: ICONS.link })); const c = el('div', { class: 'link-content' }); if (l.title && l.title !== 'In post') c.appendChild(el('div', { class: 'link-title' }, l.title)); c.appendChild(el('a', { class: 'link-url', href: l.uri, target: '_blank', rel: 'noopener noreferrer nofollow' }, l.uri)); c.appendChild(el('div', { class: 'link-source' }, `${l.source}${l.count > 1 ? ` · ${l.count}×` : ''}`)); row.appendChild(c); scroll.appendChild(row); } body.appendChild(scroll); }
+  card.appendChild(body); return card;
+}
+function renderListsCard(title, icon, lists, emptyMsg) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: icon }), title, el('span', { class: 'count-chip' }, String(lists.length)))));
+  const body = el('div', { class: 'card-body flush' });
+  if (!lists.length) body.appendChild(emptyState(emptyMsg || 'No lists found.'));
+  else { const scroll = el('div', { class: 'list-scroll' }); for (const l of lists) { const row = el('div', { class: 'list-card-row' }); row.appendChild(el('div', { class: 'lc-name' }, l.name || '(untitled)')); const meta = el('div', { class: 'lc-meta' }); meta.appendChild(el('span', {}, `by @${l.creator?.handle || 'unknown'}`)); meta.appendChild(el('span', {}, `${l.listItemCount ?? 0} items`)); if (l.indexedAt) meta.appendChild(el('span', {}, `created ${formatDateShort(l.indexedAt)}`)); row.appendChild(meta); if (l.description) row.appendChild(el('div', { class: 'lc-desc' }, l.description)); scroll.appendChild(row); } body.appendChild(scroll); }
+  card.appendChild(body); return card;
+}
+function renderMentionsCard(title, icon, mentions) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: icon }), title, el('span', { class: 'count-chip' }, String(mentions.length)))));
+  const body = el('div', { class: 'card-body flush' });
+  if (!mentions.length) body.appendChild(emptyState('No mentions found in any post.'));
+  else {
+    const list = el('div', { class: 'list-scroll' });
+    for (const m of mentions) {
+      const row = el('div', { class: 'user-row' });
+      row.appendChild(el('div', { class: 'meta' },
+        el('div', { class: 'name' }, m.name || m.handle || m.did),
+        el('div', { class: 'handle' }, m.handle ? '@' + m.handle : m.did),
+        el('div', { class: 'handle', style: 'font-size:10px' }, m.firstSeen ? `first: ${formatDateShort(m.firstSeen)}` : '')
+      ));
+      row.appendChild(el('span', { class: 'tag primary' }, `${m.count}×`));
+      const go = el('button', { class: 'go', title: 'Lookup', html: ICONS.arrowRight });
+      go.addEventListener('click', () => { $('#searchInput').value = m.handle || m.did; $('#searchForm').requestSubmit(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      row.appendChild(go);
+      list.appendChild(row);
+    }
+    body.appendChild(list);
+  }
+  card.appendChild(body); return card;
+}
+
+/* ============================================================
+   RENDER — LABELS
+   ============================================================ */
+function renderLabelsCard(profile) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.shield }), 'Verification & Labels')));
+  const body = el('div', { class: 'card-body flush' });
+  const verifRow = el('div', { class: 'label-chips' });
+  if (profile.verification?.verifiedStatus === 'valid') verifRow.appendChild(el('span', { class: 'label-chip ok', html: ICONS.check + ' Verified' }, el('small', {}, profile.verification.issuer ? ` · ${truncate(profile.verification.issuer, 30)}` : '')));
+  else verifRow.appendChild(el('span', { class: 'label-chip' }, 'Not verified'));
+  body.appendChild(verifRow);
+  const labels = profile.labels || [];
+  if (!labels.length) body.appendChild(el('div', { class: 'label-chips' }, el('span', { class: 'label-chip' }, 'No labels applied')));
+  else {
+    const grouped = {};
+    for (const l of labels) { const src = l.src || 'unknown'; if (!grouped[src]) grouped[src] = []; grouped[src].push(l); }
+    for (const [src, ls] of Object.entries(grouped)) {
+      const row = el('div', { class: 'label-chips' });
+      row.appendChild(el('div', { style: 'width:100%;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;font-weight:600;margin-bottom:2px;' }, `Source: ${truncate(src, 50)}`));
+      for (const l of ls) { const isWarn = ['!warn','!no-unauthenticated','porn','sexual','nudity','graphic-media'].includes(l.val); const isErr = ['!hide','!no-promote','dmca-violation','doxxing'].includes(l.val); row.appendChild(el('span', { class: `label-chip ${isErr?'err':isWarn?'warn':''}` }, l.val)); }
+      body.appendChild(row);
+    }
+  }
+  card.appendChild(body); return card;
+}
+
+/* ============================================================
+   RENDER — DID DOCUMENT
+   ============================================================ */
+function renderDidDocCard(didDoc, plcLog) {
+  const card = el('div', { class: 'card' });
+  card.appendChild(el('div', { class: 'card-head' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.key }), 'DID Document & History')));
+  const body = el('div', { class: 'card-body flush' });
+  const info = el('div', { class: 'info-grid' });
+  const mk = (l, v) => el('div', { class: 'info-cell' }, el('div', { class: 'l' }, l), el('div', { class: 'v' }, v));
+  info.appendChild(mk('DID', el('span', { class: 'mono' }, didDoc?.id || '—')));
+  info.appendChild(mk('Also Known As', el('span', { class: 'mono', style: 'font-size:11px' }, (didDoc?.alsoKnownAs || []).join(', ') || '—')));
+  const vm = didDoc?.verificationMethod || [];
+  info.appendChild(mk('Signing Keys', el('span', {}, `${vm.length} key${vm.length!==1?'s':''}`, el('br'), el('small', { class: 'mono' }, vm.map(k => truncate(k.id?.split('#')[1] || k.publicKeyMultibase || '', 30)).join(', ') || '—'))));
+  const rk = didDoc?.rotationKeys || [];
+  info.appendChild(mk('Rotation Keys', el('span', {}, `${rk.length} key${rk.length!==1?'s':''}`, el('br'), el('small', { class: 'mono' }, rk.map(k => truncate(k.split('#')[1] || k, 30)).join(', ') || '—'))));
+  body.appendChild(info);
+  if (plcLog && plcLog.length) {
+    body.appendChild(el('div', { class: 'card-head', style: 'border-top:1px solid var(--border);border-bottom:1px solid var(--border)' }, el('h2', {}, el('span', { class: 'ico', html: ICONS.history }), `Operation History (${plcLog.length})`)));
+    const scroll = el('div', { class: 'list-scroll', style: 'max-height:280px' });
+    plcLog.slice().reverse().forEach((op, idx) => {
+      const row = el('div', { class: 'list-card-row' });
+      const opType = op.operation?.type || op.type || 'operation';
+      row.appendChild(el('div', { class: 'lc-name' }, `#${plcLog.length - idx} · ${opType}`));
+      row.appendChild(el('div', { class: 'lc-meta' }, el('span', {}, op.createdAt ? formatDate(op.createdAt) : '—'), el('span', {}, op.cid ? `cid: ${truncate(op.cid, 20)}` : '')));
+      scroll.appendChild(row);
+    });
+    body.appendChild(scroll);
+  }
+  card.appendChild(body); return card;
+}
+
+/* ============================================================
+   MAIN LOOKUP
+   ============================================================ */
+async function performLookup(rawInput) {
+  const parsed = parseInput(rawInput);
+  if (!parsed) { toast('Enter a handle, DID, or profile URL', 'err'); return; }
+  const results = $('#results'), loaderHost = $('#loaderHost');
+  results.classList.remove('hidden'); results.innerHTML = ''; loaderHost.innerHTML = '';
+  const banner = el('div', { class: 'loader-banner' }, el('div', { class: 'spinner' }), el('div', {}, `Resolving ${parsed.did || parsed.handle}…`));
+  loaderHost.appendChild(banner);
+  if (!state.authReady) { const ok = await initSessions(); if (!ok) { loaderHost.innerHTML = ''; results.appendChild(errCard('Authentication failed', state.authError || '')); return; } }
+  const setBanner = (text) => { banner.querySelector('div:last-child').textContent = text; };
+
+  try {
+    setBanner(`Fetching profile…`);
+    const profile = await fetchProfile(parsed.did || parsed.handle);
+
+    setBanner(`Resolving DID, PLC history, DNS…`);
+    const [didDoc, plcLog] = await Promise.all([
+      getDidDocument(profile.did).catch(e => { console.warn('did', e); return null; }),
+      getPlcAuditLog(profile.did).catch(e => { console.warn('plc', e); return []; }),
+    ]);
+    const pds = extractPdsInfo(didDoc);
+    let dnsInfo = { ips: [] }, ipInfo = null;
+    if (pds.host) { dnsInfo.ips = await resolveHostIps(pds.host); if (dnsInfo.ips.length) ipInfo = await fetchIpInfo(dnsInfo.ips[0]); }
+
+    // FULL FEED — paginate through ALL posts with progress indicator
+    setBanner(`Scanning ALL posts for mentions, links, hashtags, analytics…`);
+    let feed = [];
+    // add progress bar
+    const progressWrap = el('div', { style: 'width:100%;margin-top:8px;' });
+    const progressBar = el('div', { class: 'progress-bar' });
+    const progressFill = el('div', { class: 'progress-fill', style: 'width:0%' });
+    progressBar.appendChild(progressFill);
+    const progressText = el('div', { style: 'font-size:11px;color:var(--muted);margin-top:4px;text-align:center' }, 'Starting…');
+    progressWrap.appendChild(progressBar); progressWrap.appendChild(progressText);
+    banner.appendChild(progressWrap);
+
+    try {
+      feed = await fetchFullAuthorFeed(profile.did, FULL_FEED_CAP, (loaded, page) => {
+        const pct = Math.min((loaded / Math.max(profile.postsCount || 100, 100)) * 100, 95);
+        progressFill.style.width = pct + '%';
+        progressText.textContent = `${loaded} posts scanned (page ${page})…`;
+      });
+      progressFill.style.width = '100%';
+      progressText.textContent = `${feed.length} posts scanned`;
+    } catch (e) { console.warn('feed', e); }
+
+    const mentions = extractMentionsFromFeed(feed);
+    const feedLinks = extractLinksFromFeed(feed);
+    const profileLinks = extractLinksFromProfile(profile);
+    const allLinks = [...profileLinks, ...feedLinks];
+    const lastActive = extractLastActive(feed);
+    const hashtags = extractHashtags(feed);
+    const topDomains = extractTopDomains(allLinks);
+    const analysis = analyzePostingActivity(feed);
+    const timeline = extractPostingTimeline(feed, profile.createdAt);
+
+    // Render profile + identity + server
+    results.innerHTML = '';
+    results.appendChild(renderProfileCard(profile, didDoc || {}, lastActive));
+
+    const gridIS = el('div', { class: 'grid-2' });
+    gridIS.appendChild(renderIdentityCard(profile, didDoc || {}, lastActive, plcLog));
+    gridIS.appendChild(renderServerCard(profile, didDoc || {}, dnsInfo, ipInfo));
+    results.appendChild(gridIS);
+
+    // Trust meter — full width, prominent
+    const trust = calculateTrustScore(profile, analysis, [], feed);
+    results.appendChild(renderTrustMeter(trust));
+
+    // Labels + Engagement
+    const gridVE = el('div', { class: 'grid-2' });
+    gridVE.appendChild(renderLabelsCard(profile));
+    gridVE.appendChild(renderEngagementCard(analysis));
+    results.appendChild(gridVE);
+
+    // Posting timeline — full width
+    results.appendChild(renderPostingTimeline(timeline));
+
+    // Posting activity by hour — full width
+    results.appendChild(renderPostingActivityCard(analysis));
+
+    // Hashtags + Domains
+    const gridHD = el('div', { class: 'grid-2' });
+    gridHD.appendChild(renderHashtagsCard(hashtags));
+    gridHD.appendChild(renderDomainsCard(topDomains));
+    results.appendChild(gridHD);
+
+    // Followers + Following
+    setBanner(`Fetching followers & following…`);
+    const [followersRes, followingRes] = await Promise.all([
+      fetchFollowers(profile.did, FOLLOWER_FETCH_CAP).catch(() => ({ items: [], nextCursor: null })),
+      fetchFollowing(profile.did, FOLLOWING_FETCH_CAP).catch(() => ({ items: [], nextCursor: null })),
+    ]);
+    setBanner(`Fetching lists & starter packs…`);
+    const [lists, starterPacks] = await Promise.all([
+      fetchLists(profile.did).catch(() => []),
+      fetchStarterPacks(profile.did).catch(() => []),
+    ]);
+    loaderHost.innerHTML = '';
+
+    const gridFF = el('div', { class: 'grid-2' });
+    gridFF.appendChild(renderActorListCard('Followers', ICONS.followers, followersRes.items, profile.followersCount, 'followers',
+      followersRes.nextCursor ? (async () => { const r = await fetchFollowers(profile.did, 100, followersRes.nextCursor); followersRes.nextCursor = r.nextCursor; return r.items; }) : null));
+    gridFF.appendChild(renderActorListCard('Following', ICONS.users, followingRes.items, profile.followsCount, 'following',
+      followingRes.nextCursor ? (async () => { const r = await fetchFollowing(profile.did, 100, followingRes.nextCursor); followingRes.nextCursor = r.nextCursor; return r.items; }) : null));
+    results.appendChild(gridFF);
+
+    const gridLists = el('div', { class: 'grid-2' });
+    gridLists.appendChild(renderListsCard('Lists Created by Account', ICONS.lists, lists, 'This account has not created any lists.'));
+    gridLists.appendChild(renderListsCard('Lists / Packs Containing Account', ICONS.lists, [], 'Bluesky\'s API exposes no endpoint to enumerate lists a user belongs to.'));
+    results.appendChild(gridLists);
+
+    if (starterPacks.length) {
+      results.appendChild(renderListsCard('Starter Packs Created', ICONS.star, starterPacks.map(sp => ({ name: sp.record?.name || 'Starter Pack', creator: sp.creator, listItemCount: sp.record?.listItems?.length || 0, indexedAt: sp.indexedAt, description: sp.record?.description || '' })), 'No starter packs.'));
+    }
+
+    // Mentions (ALL posts scanned) + Links
+    const gridLM = el('div', { class: 'grid-2' });
+    gridLM.appendChild(renderMentionsCard(`All Accounts Mentioned (${feed.length} posts scanned)`, ICONS.at, mentions));
+    gridLM.appendChild(renderLinksCard('Links on Account', ICONS.link, allLinks));
+    results.appendChild(gridLM);
+
+    if (didDoc) results.appendChild(renderDidDocCard(didDoc, plcLog));
+
+    toast(`Lookup complete for @${profile.handle}`, 'ok');
+  } catch (e) {
+    loaderHost.innerHTML = ''; console.error(e);
+    results.appendChild(errCard('Lookup failed', e.message || String(e)));
+  }
+}
+
+/* ============================================================
+   THEME
+   ============================================================ */
+function initTheme() {
+  const saved = localStorage.getItem('soyuz-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+}
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('soyuz-theme', theme);
+  const icon = $('#themeIcon');
+  icon.innerHTML = theme === 'dark'
+    ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+    : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+}
+function toggleTheme() { applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  $('#themeToggle').addEventListener('click', toggleTheme);
+  $('#searchForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = $('#searchInput').value.trim();
+    if (!v) { toast('Enter a handle, DID, or profile URL', 'err'); return; }
+    performLookup(v);
+  });
+  $('#examples').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-q]'); if (!b) return;
+    $('#searchInput').value = b.dataset.q; $('#searchForm').requestSubmit();
+  });
+  initSessions().catch(e => { setConn('err', 'Auth failed'); console.error(e); });
+});
+</script>
+</body>
+</html>
